@@ -1,0 +1,30 @@
+<h1>Articoli Disponibili</h1>
+
+<table id="articoli" border="1">
+    <caption>Alimentari</caption>
+    <thead>
+        <tr>
+            <th>Codice</th>
+            <th>Descrizione</th>
+            <th>Um</th>
+            <th>Pz</th>
+            <th>Peso kg/lt</th>
+            <th>Prezzo</th>
+            <th>Active</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of articoli">
+            <td>{{item.codart}}</td>
+            <td>{{item.descrizione}}</td>
+            <td>{{item.um}}</td>
+            <td>{{item.pzcart}}</td>
+            <td>{{item.peso}}</td>
+            <td>{{item.prezzo | currency:'€ '}}</td>
+            <td>{{item.active}}</td>
+            <td>{{item.data | date:'dd/MM/YYYY'}} </td>
+        </tr>
+
+    </tbody>
+</table>
