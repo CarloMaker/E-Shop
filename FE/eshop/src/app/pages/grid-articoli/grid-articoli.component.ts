@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { ArticoliService } from 'src/services/data/articoli.service';
 import { IArticoli } from 'src/app/models/Articoli';
-import { ArticoliService } from 'src/services/articoli.service';
-import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-grid-articoli',
@@ -12,20 +12,27 @@ export class GridArticoliComponent implements OnInit {
 
   articoli$ : IArticoli[] = [];
 
-  constructor(private articoliService  : ArticoliService ) { }
+  constructor(private articoliService: ArticoliService) { }
 
   ngOnInit(): void {
 
-    this.articoli$ = this.articoliService.getArticoli();
+    //this.articoli$ = this.articoliService.getArticoli();
+    console.log(this.articoli$);
 
   }
 
-  handleDelete = (codart : string ) => {
-    this.articoli$.splice(this.articoli$.findIndex( x => x.codart == codart),1);
-    //alert("Cancellato " + codart);
+  handleEdit = (codart : string) => {
+    console.log("Cliccato tasto modifica del codice " + codart);
+
+
   }
 
-  handleEdit = (codart : string ) => {
-    alert("Modificato " + codart);
+  handleDelete = (codart : string) => {
+    console.log("Cliccato tasto elimina del codice " + codart);
+
+    this.articoli$.splice(this.articoli$.findIndex(x => x.codArt === codart), 1);
+    console.log(this.articoli$);
+
   }
+
 }

@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output  } from '@angular/core';
-import { IArticoli } from 'src/app/models/Articoli';
-import { ArticoliService } from 'src/services/articoli.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { IArticoli } from 'src/app/models/Articoli';
 
 @Component({
   selector: 'app-articoli-card',
@@ -10,39 +9,42 @@ import { ArticoliService } from 'src/services/articoli.service';
 })
 export class ArticoliCardComponent implements OnInit {
 
+  constructor() { }
+
   @Input()
-  articolo : IArticoli={
-    codart: '',
+  articolo: IArticoli  = {
+    codArt: '',
     descrizione: '',
     um: '',
-    pzcart: 0,
-    peso: 0,
+    pzCart: 0,
+    pesoNetto: 0,
     prezzo: 0,
-    active: false,
-    data: new Date(),
-    imageUrl: ''
+    dataCreazione: new Date(),
+    imageUrl: '',
+    desStatoArt: '',
+    famAssort: {
+      id: 0,
+      descrizione: ''
+    },
+    iva: {
+      idIva: 0,
+      descrizione: '',
+      aliquota: 0
+    },
+    barcode: [],
+    codStat: '1',
+    idStatoArt: ''
   };
 
   @Output()
-  delete  = new EventEmitter();
-
+  delete = new EventEmitter();
   @Output()
   edit = new EventEmitter();
 
-  constructor(private articoliService  : ArticoliService ) { }
-
   ngOnInit(): void {
-
-    
-
   }
 
+  editArt = () => this.edit.emit(this.articolo.codArt);
+  delArt = () => this.delete.emit(this.articolo.codArt);
 
-  editArticolo = () :void =>{
-    this.edit.emit(this.articolo.codart);
-  }
-
-  deleteArticolo = () : void =>{
-    this.delete.emit(this.articolo.codart);
-  }
 }

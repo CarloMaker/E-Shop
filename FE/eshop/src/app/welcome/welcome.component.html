@@ -1,2 +1,3 @@
 <app-jumbotron [Titolo]="titolo" [SottoTitolo]="sottoTitolo" [Show]="false">  </app-jumbotron>
-<p>welcome {{utente}} <a routerLink="/articoli"> vai a articoli </a></p>
+<p> welcome {{utente}} {{welcome}} <a routerLink="/articoli"> vai a articoli </a></p>
+<button class ="btn btn-primary" (click)="getWelcome()" >Invoca Servizio</button>
