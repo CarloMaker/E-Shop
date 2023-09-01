@@ -2,29 +2,34 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { ApiMsg } from 'src/app/models/ApiMsg';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
+//// BASIC AUTENTICATION
 export class AuthappService {
   
-  server: string ="localhost"
-  port: string = "5051"
+  server: string =environment.server
+  port: string = environment.port
 
   constructor(private httpClient : HttpClient) { }
 
 
   autenticaService(userid :string , password :string){
 
+    let authString : string = "Basic " + window.btoa(userid+":"+password);
 
     let headers = new HttpHeaders(
-      {Authorization:"Basic " + window.btoa(userid+":"+password)} //btoa > Base64
+      {Authorization:authString} //btoa > Base64
     );
 
     return this.httpClient.get<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/test`,{headers}).pipe(
       map(
         data => {
           sessionStorage.setItem("Utente",userid); //contestualmente regista il session storage
+          sessionStorage.setItem("AuthToken", authString);
           return data;
         }
       )

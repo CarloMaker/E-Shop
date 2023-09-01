@@ -4,6 +4,8 @@ import { ArticoliService } from 'src/services/data/articoli.service';
 import { IArticoli } from 'src/app/models/Articoli';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, map, observable, of } from 'rxjs';
+import { AuthJwtService } from 'src/services/authjwt.service';
+import { Ruoli } from 'src/app/models/Ruoli';
 
 @Component({
   selector: 'app-articoli',
@@ -15,7 +17,7 @@ export class ArticoliComponent implements OnInit {
 
   articoli$: IArticoli[]  = []
   errore: string ="";
-
+  isAdmin : boolean = false;
   //pagination
   pagina : number = 1
   righe :number = 10
@@ -26,9 +28,12 @@ export class ArticoliComponent implements OnInit {
   filterType: number = 0;
   codart: string ="";
 
-  constructor(private articoliService: ArticoliService,private route: ActivatedRoute,private router: Router) { }
+  constructor(private articoliService: ArticoliService,private route: ActivatedRoute,private router: Router,private AuthService : AuthJwtService) { }
 
   ngOnInit(): void {
+
+    this.isAdmin = true;this.AuthService.getRoles().includes(Ruoli.amministratore);
+
     this.filter$ = this.route.queryParamMap.pipe(
       map((params: ParamMap) => params.get('filter'))
     );
@@ -103,7 +108,8 @@ export class ArticoliComponent implements OnInit {
     }
     else {
       console.log(error);
-      this.errore = error.error.message;
+      //this.errore = error.error.message; modificata da errorhandle interceptors
+       this.errore= error;
       this.filterType = 0;
     }
 
@@ -132,7 +138,8 @@ export class ArticoliComponent implements OnInit {
 
   handleErrDelete(error:any){
     console.log("Errore" , error);
-    this.errore = error.error.message;
+   // this.errore = error.error.message; modificata 
+    this.errore = error;
   }
   
   handleOkDelete(error:any) {

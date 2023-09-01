@@ -10,17 +10,20 @@ import { RegistrazioneComponent } from './pages/registrazione/registrazione.comp
 import { RouteGuardService } from '../services/route-guard.service';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { GestartComponent } from './pages/gestart/gestart.component';
+import { Ruoli } from './models/Ruoli';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 
 const routes: Routes = [
   {path:'', component: LoginComponent},
   {path:'login', component: LoginComponent},
   {path:'signup', component : RegistrazioneComponent},
-  {path:'welcome/:userid', component: WelcomeComponent, canActivate:[RouteGuardService]},
-  {path:'articoli', component : ArticoliComponent, canActivate:[RouteGuardService]},
-  {path:'articoli/grid', component : GridArticoliComponent, canActivate:[RouteGuardService]},
-  {path:'gestart/:codart', component : GestartComponent, canActivate:[RouteGuardService]}, // modifica art
-  {path:'gestart', component : GestartComponent, canActivate:[RouteGuardService]}, //inserimento
+  {path:'welcome/:userid', component: WelcomeComponent, canActivate:[RouteGuardService],data:{roles:[Ruoli.utente]}}, //vincolo per utente
+  {path:'articoli', component : ArticoliComponent, canActivate:[RouteGuardService],data:{roles:[Ruoli.utente]}}, //vincolo per utente
+  {path:'articoli/grid', component : GridArticoliComponent, canActivate:[RouteGuardService],data:{roles:[Ruoli.utente]}}, //vincolo per utente
+  {path:'gestart/:codart', component : GestartComponent, canActivate:[RouteGuardService],data:{roles:[Ruoli.amministratore]}}, //modifica articolo vincolo per utente
+  {path:'gestart', component : GestartComponent, canActivate:[RouteGuardService],data:{roles:[Ruoli.amministratore]}}, //inserimento articolo vincolo per utente
   {path:'logout', component : LogoutComponent},
+  {path:'forbidden', component : ForbiddenComponent},  
   {path:'**', component: ErrorComponent},
 ];
 

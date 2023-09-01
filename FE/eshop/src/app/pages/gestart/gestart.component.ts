@@ -95,7 +95,7 @@ export class GestartComponent implements OnInit {
           },
           error: (error) =>{
             this.apiMsg = error.error;
-            this.errorMsg = this.apiMsg.message;
+            this.errorMsg =error;
           }
       }) 
     }else{
@@ -107,7 +107,7 @@ export class GestartComponent implements OnInit {
         },
         error: (error) =>{
           this.apiMsg = error.error;
-          this.errorMsg = this.apiMsg.message;
+          this.errorMsg = error;
         }
     }) 
     }

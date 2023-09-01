@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { ApiMsg } from 'src/app/models/ApiMsg';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticoliService {
 
-  server: string ="localhost"
-  port: string = "5051"
+  server: string =environment.server
+  port: string = environment.port
  
   constructor(private httpClient : HttpClient) { }
 

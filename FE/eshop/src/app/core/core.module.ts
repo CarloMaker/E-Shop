@@ -5,13 +5,15 @@ import { JumbotronComponent } from './jumbotron/jumbotron.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     JumbotronComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
   exports: [
     HeaderComponent,
     FooterComponent,
-    JumbotronComponent
+    JumbotronComponent,
+    SpinnerComponent
   ]
 })
 export class CoreModule { }

@@ -3,7 +3,7 @@
   <div class="content-header">
     <h2 class="content-title">Lista Prodotti</h2>
     <div>
-      <button class="btn btn-primary" (click)="modifica('')">
+      <button class="btn btn-primary" [disabled]="!isAdmin" (click)="modifica('')">
         <i class="material-icons md-plus"></i>
         Nuovo
       </button>
@@ -72,7 +72,7 @@
               <td class="tbl-string">{{articolo.dataCreazione | date : 'dd-MM-YYYY'}}</td>
 
               <td class="text-end">
-                <button (click)="elimina(articolo.codArt)" class="btn btn-light text-danger">Elimina</button>
+                <button (click)="elimina(articolo.codArt)" class="btn btn-light text-danger" [disabled]="!isAdmin">Elimina</button>
 								<div class="dropdown">
 									<button href="#" data-bs-toggle="dropdown" class="btn btn-light">
                     <i class="material-icons md-more_horiz"></i>
@@ -88,6 +88,8 @@
             </tr>
           </tbody>
         </table>
+
+        <app-spinner></app-spinner>
 
         <nav class="float-end mt-3" aria-label="Page navigation">
           <pagination-controls class="my-pagination" (pageChange)="pagina = $event"

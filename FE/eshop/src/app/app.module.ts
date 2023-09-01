@@ -16,6 +16,9 @@ import { RegistrazioneComponent } from './pages/registrazione/registrazione.comp
 import { NgxPaginationModule } from 'ngx-pagination';
 import { GestartComponent } from './pages/gestart/gestart.component';
 import { AuthInterceptorService } from 'src/services/interceptors/auth-interceptor.service';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
+import { ErrorHandlerInterceptor } from 'src/services/interceptors/error-handler.interceptor';
+import { NetworkInterceptor } from 'src/services/interceptors/network.interceptor';
 
 
 
@@ -30,7 +33,9 @@ import { AuthInterceptorService } from 'src/services/interceptors/auth-intercept
     GridArticoliComponent,
     ArticoliCardComponent,
     RegistrazioneComponent,
-    GestartComponent
+    GestartComponent,
+    ForbiddenComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,10 @@ import { AuthInterceptorService } from 'src/services/interceptors/auth-intercept
   ],
   // header add automatico
   providers: [
-    { provide: HTTP_INTERCEPTORS  ,useClass: AuthInterceptorService , multi: true }],
+    { provide: HTTP_INTERCEPTORS  ,useClass: AuthInterceptorService , multi: true },
+    { provide: HTTP_INTERCEPTORS  ,useClass: ErrorHandlerInterceptor , multi: true },
+    { provide: HTTP_INTERCEPTORS  ,useClass: NetworkInterceptor , multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
